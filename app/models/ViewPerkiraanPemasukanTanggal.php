@@ -77,9 +77,9 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
         $length = $requestData['length'];
         if (!empty($requestSearch)) {
             //function mencari data user
-                $sql = "SELECT * FROM ViewPerkiraanPemasukanTanggal WHERE username LIKE '%".$requestSearch."%'";
-                $sql.= "OR cabang_id LIKE '%".$requestSearch."%'";
-                $sql.= "OR type LIKE '%".$requestSearch."%'";
+                $sql = "SELECT * FROM ViewPerkiraanPemasukanTanggal WHERE tanggal_cair LIKE '%".$requestSearch."%'";
+                $sql.= "OR tanggal_cair LIKE '%".$requestSearch."%'";
+                $sql.= "OR penghasilan LIKE '%".$requestSearch."%'";
                 $query = $this->modelsManager->executeQuery($sql); 
                 $totalFiltered = count($query);
     

@@ -103,6 +103,8 @@ $di->set('flash', function () {
     ]);
 });
 
+
+
 /**
  * Start the session the first time some component request the session service
  */
@@ -111,4 +113,8 @@ $di->setShared('session', function () {
     $session->start();
 
     return $session;
+});
+
+$di->set('Helpers', function () {
+    return new Helpers();
 });

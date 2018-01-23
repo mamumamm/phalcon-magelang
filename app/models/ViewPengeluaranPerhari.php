@@ -134,9 +134,9 @@ class ViewPengeluaranPerhari extends \Phalcon\Mvc\Model
         $length = $requestData['length'];
         if (!empty($requestSearch)) {
             //function mencari data user
-                $sql = "SELECT * FROM ViewPengeluaranPerhari WHERE username LIKE '%".$requestSearch."%'";
-                $sql.= "OR cabang_id LIKE '%".$requestSearch."%'";
-                $sql.= "OR type LIKE '%".$requestSearch."%'";
+                $sql = "SELECT * FROM ViewPengeluaranPerhari WHERE Hari LIKE '%".$requestSearch."%'";
+                $sql.= "OR Hari LIKE '%".$requestSearch."%'";
+                $sql.= "OR Pengeluaran LIKE '%".$requestSearch."%'";
                 $query = $this->modelsManager->executeQuery($sql); 
                 $totalFiltered = count($query);
     
@@ -156,7 +156,10 @@ class ViewPengeluaranPerhari extends \Phalcon\Mvc\Model
             $dataUser[] = $no;
             $dataUser[] = $value->Hari;
             $dataUser[] = $value->Pengeluaran;
-           
+            $dataUser[] ='
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default" 
+            (\''.$value->id.'\');">View</button>
+            ';
 
             $data[] = $dataUser;
             $no++;

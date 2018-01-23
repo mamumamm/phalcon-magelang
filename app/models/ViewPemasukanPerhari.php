@@ -57,7 +57,7 @@ class ViewPemasukanPerhari extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
-    public function getDataPemasukan()
+    public function getDataPemasukan($bulan)
     {
         $requestData = $_REQUEST;
         $requestSearch = strtoupper($requestData['search']['value']);
@@ -77,9 +77,9 @@ class ViewPemasukanPerhari extends \Phalcon\Mvc\Model
         $length = $requestData['length'];
         if (!empty($requestSearch)) {
             //function mencari data user
-                $sql = "SELECT * FROM ViewPemasukanPerhari WHERE username LIKE '%".$requestSearch."%'";
-                $sql.= "OR cabang_id LIKE '%".$requestSearch."%'";
-                $sql.= "OR type LIKE '%".$requestSearch."%'";
+                $sql = "SELECT * FROM ViewPemasukanPerhari WHERE Hari LIKE '%".$requestSearch."%'";
+                $sql.= "OR Hari LIKE '%".$requestSearch."%'";
+                $sql.= "OR pemasukan LIKE '%".$requestSearch."%'";
                 $query = $this->modelsManager->executeQuery($sql); 
                 $totalFiltered = count($query);
     
@@ -87,8 +87,13 @@ class ViewPemasukanPerhari extends \Phalcon\Mvc\Model
                 $query = $this->modelsManager->executeQuery($sql); 
             } else {
             //function menampilkan seluruh data
-                $sql = "SELECT * FROM ViewPemasukanPerhari limit $start,$length" ;
-                $query = $this->modelsManager->executeQuery($sql); 
+                if (!$bulan) {
+                    $sql = "SELECT * FROM ViewPemasukanPerhari limit $start,$length" ;
+                    $query = $this->modelsManager->executeQuery($sql); 
+                }else {
+                    $sql = "SELECT * FROM ViewPemasukanPerhari WHERE month(tanggal)='$bulan' limit $start,$length" ;
+                    $query = $this->modelsManager->executeQuery($sql); 
+                }
             }
 
         $data = array();

@@ -141,9 +141,11 @@ class KeuRab extends \Phalcon\Mvc\Model
         $length = $requestData['length'];
         if (!empty($requestSearch)) {
             //function mencari data user
-                $sql = "SELECT * FROM KeuRab WHERE username LIKE '%".$requestSearch."%'";
+                $sql = "SELECT * FROM KeuRab WHERE periode LIKE '%".$requestSearch."%'";
+                $sql.= "OR nama_barang LIKE '%".$requestSearch."%'";
+                $sql.= "OR akun_id LIKE '%".$requestSearch."%'";
+                $sql.= "OR jml_barang LIKE '%".$requestSearch."%'";
                 $sql.= "OR cabang_id LIKE '%".$requestSearch."%'";
-                $sql.= "OR type LIKE '%".$requestSearch."%'";
                 $query = $this->modelsManager->executeQuery($sql); 
                 $totalFiltered = count($query);
     
