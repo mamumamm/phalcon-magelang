@@ -158,7 +158,7 @@ class ViewPengeluaranPerhari extends \Phalcon\Mvc\Model
             $dataUser[] = $value->Pengeluaran;
             $dataUser[] ='
             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default" 
-            (\''.$value->id.'\');">View</button>
+            onclick="return show_data_pengeluaran(\''.$value->Hari.'\');">View</button>
             ';
 
             $data[] = $dataUser;

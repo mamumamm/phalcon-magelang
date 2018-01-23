@@ -174,7 +174,7 @@
                                             <th>Total Harga</th>
                                             <th>Keterangan</th>
                                             <th>Cabang Id</th>
-                                            <th>Action</th>
+                                           
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -226,42 +226,43 @@
           <!-- nav-tabs-custom -->
         </div>
         <div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form class="viewPengeluaran" action="pengeluaran/addUser" method="POST">
-                <div class="modal-header">
-                    <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Pengeluaran</h4>
-                </div>
-                <div class="box-body">
-                    <table id="data_Keuharian" class="table table-bordered table-striped listUser display responsive no-wrap">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                
-                                <th>Tanggal</th>
-                                <th>Nama Barang</th>
-                                <th>Akun</th>
-                                <th>Jumlah Barang</th>
-                                <th>Harga Satuan</th>
-                                
-                                <th>Total Harga</th>
-                                
-                               
-                            </tr>
-                        </thead>
-                        <tbody>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Pengeluaran</h4>
+                    </div>
+                    <div class="box-body">
+                        <table id="data_keuharian" class="table table-bordered table-striped listUser display responsive no-wrap">
+                            <thead>
+                                <tr>
+                                    <th>Akun ID</th>
+                                    
+                                    <th>ID</th>
+                                    <th>JML Barang</th>
+                                    <th>Keterangan</th>
+                                    <th>Kredit</th>
+                                    <th>Pelaku</th>
+                                    <th>Tanggal</th>
+                                    <th>Total Harga</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
+                        
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                 </div>
-                
-            </form>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal-content -->
+            </div>
+        
+            <!-- /.modal-dialog -->
 </div>
         <script>
             $(document).ready(function() {
@@ -304,15 +305,26 @@
                     }
                 });
             });
-            $(document).ready(function(){
-                var dataTable = $('#data_Keuharian').DataTable({
-                    "processing" : false,
-                    "serverSide" : true,
-                    "ajax": {
-                    url: "Pengeluaran/getView",
-                    type: "post",
+            function show_data_pengeluaran(Hari) {
+                $('.modal-title').text('Pengeluaran  ' + Hari);
+                $('.btnAction').attr('class',"btn btn-outline btnAction");
+                $.ajax({
+                    method: "POST",
+                    dataType: "json",
+                    url: "{{url('Pengeluaran/getView')}}/" + Hari,
+                    data: $('form.addUser').serialize(),
+                    success: function(response) {
+                        var trHTML = '';
+                        $.each(response, function (i, item) {
+                            trHTML += '<tr><td>' + item.akun_id + '</td><td>' + 
+                            item.id + '</td><td>' + 
+                            item.jml_barang + '</td><td>' + item.keterangan + '</td><td>' + 
+                            item.kredit + '</td> <td>' + item.pelaku + '</td><td>' + 
+                            item.tanggal + '</td><td>' + item.total_harga + '</td></tr>';
+                        });
+                        $('#data_keuharian').append(trHTML);
                     }
                 });
-            });
+            }
                        
         </script>

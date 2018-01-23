@@ -173,12 +173,12 @@ class KeuRab extends \Phalcon\Mvc\Model
             $dataUser[] = $value->total_harga;
             $dataUser[] = $value->keterangan;
             $dataUser[] = $value->cabang_id;
-            $dataUser[] = '
-               <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default" 
-               onclick="return send_data_edit(\''.$value->id.'\');">Edit</button>
-               <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete"
-                onclick="return send_data_delete(\''.$value->id.'\');">Delete</button>
-            ';
+            // $dataUser[] = '
+            //    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-default" 
+            //    onclick="return send_data_edit(\''.$value->id.'\');">Edit</button>
+            //    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete"
+            //     onclick="return send_data_delete(\''.$value->id.'\');">Delete</button>
+            // ';
 
             $data[] = $dataUser;
             $no++;
