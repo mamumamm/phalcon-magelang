@@ -5,7 +5,12 @@ class RekapharianController extends \Phalcon\Mvc\Controller
 
     public function indexAction()
     {
+        if (!$this->session->has('auth')) {
+            $this->response->redirect('login');
+        }
 
+        // $data_user = User::find("");
+        // $this->view->data_user = $data_user;
     }
 
     public function getAjaxAction()

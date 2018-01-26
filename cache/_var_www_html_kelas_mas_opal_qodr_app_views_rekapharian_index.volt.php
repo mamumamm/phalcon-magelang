@@ -1,6 +1,6 @@
 <div class="col-md-12">
           <!-- Custom Tabs -->
-          <div class="nav-tabs-custom">
+        <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Pemasukan</a></li>
                 <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Pengeluaran</a></li>
@@ -87,7 +87,7 @@
                     <!-- /.box-body-->
             </div>
             <!-- /.box -->
-            </div>
+        </div>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_1">
                 <div class="row">
@@ -105,6 +105,7 @@
                                             <th>No.</th>
                                             <th>Hari</th>
                                             <th>Pemasukan</th>
+                                            <th>Action</th>
                                             
                                         </tr>
                                     </thead>
@@ -205,6 +206,7 @@
                                             <th>No.</th>
                                             <th>Tanggal Cair</th>
                                             <th>Penghasilan</th>
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -237,15 +239,15 @@
                         <table id="data_keuharian" class="table table-bordered table-striped listUser display responsive no-wrap">
                             <thead>
                                 <tr>
-                                    <th>Akun ID</th>
+                                    <th class="kolom1">Akun ID</th>
                                     
-                                    <th>ID</th>
-                                    <th>JML Barang</th>
-                                    <th>Keterangan</th>
-                                    <th>Kredit</th>
-                                    <th>Pelaku</th>
-                                    <th>Tanggal</th>
-                                    <th>Total Harga</th>
+                                    <th class="kolom2">Nama Barang</th>
+                                    <th class="kolom3">JML Barang</th>
+                                    <th class="kolom4">Harga Satuan</th>
+                                    <th class="kolom5">Pelaku</th>
+                                    <th class="kolom6">Tanggal</th>
+                                    <th class="kolom7">Total Harga</th>
+                                    <th class="kolom8">Keterangan</th>
                                     
                                 </tr>
                             </thead>
@@ -256,13 +258,17 @@
                     </div>
                         
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                    <button type="button" id="btn-close" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                 </div>
                 </div>
                 <!-- /.modal-content -->
             </div>
-        
             <!-- /.modal-dialog -->
+        
+        
+
+
+
 </div>
         <script>
             $(document).ready(function() {
@@ -308,6 +314,11 @@
             function show_data_pengeluaran(Hari) {
                 $('.modal-title').text('Pengeluaran  ' + Hari);
                 $('.btnAction').attr('class',"btn btn-outline btnAction");
+                $('.kolom1').text('Akun ID');
+                
+                $('.kolom3').text('Jumlah Barang');
+                $('.kolom4').text('Harga Satuan');
+                $('.kolom2, .kolom5, .kolom6, .kolom7, .kolom8').show();
                 $.ajax({
                     method: "POST",
                     dataType: "json",
@@ -317,12 +328,55 @@
                         var trHTML = '';
                         $.each(response, function (i, item) {
                             trHTML += '<tr><td>' + item.akun_id + '</td><td>' + 
-                            item.id + '</td><td>' + 
-                            item.jml_barang + '</td><td>' + item.keterangan + '</td><td>' + 
-                            item.kredit + '</td> <td>' + item.pelaku + '</td><td>' + 
-                            item.tanggal + '</td><td>' + item.total_harga + '</td></tr>';
+                            item.nama_barang + '</td><td>' + 
+                            item.jml_barang + '</td><td>' + 
+                            item.harga_satuan + '</td> <td>' + 
+                            item.pelaku + '</td><td>' + 
+                            item.tanggal + '</td><td>' + 
+                            item.total_harga + '</td><td>' + 
+                            item.keterangan + '</td></tr>';
                         });
                         $('#data_keuharian').append(trHTML);
+                        $('#modal-default').on('click', function(){
+                            $('#data_keuharian tr>td').remove();
+                        });
+                        // var x;
+                        // $('#btn-close').click(function(){
+                        //     x = $('#data_keuharian tr>td').detach();
+                        // });
+                        // $('#btn-view').click(function(){
+                        //     x = $('#data_keuharian tr>td').prepend(x);
+                        // });
+                    }
+                });
+            }
+            function show_data_pemasukan(Hari) {
+                $('.modal-title').text('Pemasukan  ' + Hari);
+                $('.btnAction').attr('class',"btn btn-outline btnAction");
+                $('.kolom1').text('ID');
+                
+                $('.kolom3').text('Pelaku');
+                $('.kolom4').text('Pemasukan');
+                $('.kolom2, .kolom5, .kolom6, .kolom7, .kolom8').hide();
+                
+                $.ajax({
+                    method: "POST",
+                    dataType: "json",
+                    url: "<?= $this->url->get('Pemasukan/getView') ?>/" + Hari,
+                    data: $('form.addUser').serialize(),
+                    success: function(response) {
+                        var trHTML = '';
+                        $.each(response, function (i, item) {
+                            trHTML += '<tr><td>' + item.id + '</td><td>' + 
+                             
+                            item.pelaku + '</td><td>' + 
+                            
+                            item.debit + '</td></tr>';
+                        });
+                        $('#data_keuharian').append(trHTML);
+                        $('#modal-default').on('click', function(){
+                            $('#data_keuharian tr>td').remove();
+                        });
                     }
                 });
             }
