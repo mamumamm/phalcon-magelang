@@ -1,14 +1,14 @@
 <?php
 
-class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
+class ViewPerkiraanPemasukanBulan extends \Phalcon\Mvc\Model
 {
 
     /**
      *
      * @var string
-     * @Column(type="string", length=14, nullable=true)
+     * @Column(type="string", length=9, nullable=true)
      */
-    public $tanggal_cair;
+    public $bulan_cair;
 
     /**
      *
@@ -32,14 +32,14 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'view_perkiraan_pemasukan_tanggal';
+        return 'view_perkiraan_pemasukan_bulan';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return ViewPerkiraanPemasukanTanggal[]|ViewPerkiraanPemasukanTanggal
+     * @return ViewPerkiraanPemasukanBulan[]|ViewPerkiraanPemasukanBulan
      */
     public static function find($parameters = null)
     {
@@ -50,7 +50,7 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return ViewPerkiraanPemasukanTanggal
+     * @return ViewPerkiraanPemasukanBulan
      */
     public static function findFirst($parameters = null)
     {
@@ -63,12 +63,12 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
         $requestSearch = strtoupper($requestData['search']['value']);
 
         $columns = array(
-            0 => 'tanggal_cair',
+            0 => 'bulan_cair',
             1 => 'penghasilan',
             
         );
 
-        $sql = "SELECT * FROM ViewPerkiraanPemasukanTanggal";
+        $sql = "SELECT * FROM ViewPerkiraanPemasukanBulan";
         $query = $this->modelsManager->executeQuery($sql);
         $totalData = count($query);
         $totalFiltered = $totalData;  
@@ -77,8 +77,8 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
         $length = $requestData['length'];
         if (!empty($requestSearch)) {
             //function mencari data user
-                $sql = "SELECT * FROM ViewPerkiraanPemasukanTanggal WHERE tanggal_cair LIKE '%".$requestSearch."%'";
-                $sql.= "OR tanggal_cair LIKE '%".$requestSearch."%'";
+                $sql = "SELECT * FROM ViewPerkiraanPemasukanBulan WHERE bulan_cair LIKE '%".$requestSearch."%'";
+                $sql.= "OR bulan_cair LIKE '%".$requestSearch."%'";
                 $sql.= "OR penghasilan LIKE '%".$requestSearch."%'";
                 $query = $this->modelsManager->executeQuery($sql); 
                 $totalFiltered = count($query);
@@ -87,7 +87,7 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
                 $query = $this->modelsManager->executeQuery($sql); 
             } else {
             //function menampilkan seluruh data
-                $sql = "SELECT * FROM ViewPerkiraanPemasukanTanggal limit $start,$length" ;
+                $sql = "SELECT * FROM ViewPerkiraanPemasukanBulan limit $start,$length" ;
                 $query = $this->modelsManager->executeQuery($sql); 
             }
 
@@ -97,11 +97,11 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
         foreach ($query as $key => $value) {
             $dataUser = array();
             $dataUser[] = $no;
-            $dataUser[] = $value->tanggal_cair;
+            $dataUser[] = $value->bulan_cair;
             $dataUser[] = $value->penghasilan;
             $dataUser[] ='
             <button type="button" id="btn-view" class="btn btn-warning" data-toggle="modal" data-target="#modal-default" 
-            onclick="return show_data_penghasilan(\''.$value->tanggal_cair.'\');">View</button>
+            onclick="return show_data_penghasilan(\''.$value->bulan_cair.'\');">View</button>
             ';
           
 
@@ -123,18 +123,19 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
     public function getDataGraphic()
     {
        
-        $sql = "SELECT * FROM ViewPerkiraanPemasukanTanggal LIMIT 5";
+        $sql = "SELECT * FROM ViewPerkiraanPemasukanBulan LIMIT 5";
         $query = $this->modelsManager->executeQuery($sql);
         $data = array();
         
         foreach ($query as $key => $value) {
             $dataUser = array();
-            $tanggal = str_replace(' ','',$value->tanggal_cair);
-            $dataUser['tanggal'] = $value->tanggal_cair;
+            $tanggal = str_replace(' ','',$value->bulan_cair);
+            $dataUser['tanggal'] = $value->bulan_cair;
             $dataUser['nominal'] = $value->penghasilan;
             $data[] = $dataUser;
         }
         
         return $data; 
     }
+
 }

@@ -1,21 +1,21 @@
 <?php
 
-class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
+class ViewPengeluaranPerbulan extends \Phalcon\Mvc\Model
 {
 
     /**
      *
      * @var string
-     * @Column(type="string", length=14, nullable=true)
+     * @Column(type="string", length=7, nullable=true)
      */
-    public $tanggal_cair;
+    public $Bulan;
 
     /**
      *
      * @var double
      * @Column(type="double", length=32, nullable=true)
      */
-    public $penghasilan;
+    public $Pengeluaran;
 
     /**
      * Initialize method for model.
@@ -32,14 +32,14 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'view_perkiraan_pemasukan_tanggal';
+        return 'view_pengeluaran_perbulan';
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return ViewPerkiraanPemasukanTanggal[]|ViewPerkiraanPemasukanTanggal
+     * @return ViewPengeluaranPerbulan[]|ViewPengeluaranPerbulan
      */
     public static function find($parameters = null)
     {
@@ -50,25 +50,25 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return ViewPerkiraanPemasukanTanggal
+     * @return ViewPengeluaranPerbulan
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
     }
 
-    public function getDataPenghasilan()
+    public function getDataPengeluaran()
     {
         $requestData = $_REQUEST;
         $requestSearch = strtoupper($requestData['search']['value']);
 
         $columns = array(
-            0 => 'tanggal_cair',
-            1 => 'penghasilan',
+            0 => 'Bulan',
+            1 => 'Pengeluaran',
             
         );
 
-        $sql = "SELECT * FROM ViewPerkiraanPemasukanTanggal";
+        $sql = "SELECT * FROM ViewPengeluaranPerbulan";
         $query = $this->modelsManager->executeQuery($sql);
         $totalData = count($query);
         $totalFiltered = $totalData;  
@@ -77,9 +77,9 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
         $length = $requestData['length'];
         if (!empty($requestSearch)) {
             //function mencari data user
-                $sql = "SELECT * FROM ViewPerkiraanPemasukanTanggal WHERE tanggal_cair LIKE '%".$requestSearch."%'";
-                $sql.= "OR tanggal_cair LIKE '%".$requestSearch."%'";
-                $sql.= "OR penghasilan LIKE '%".$requestSearch."%'";
+                $sql = "SELECT * FROM ViewPengeluaranPerbulan WHERE Bulan LIKE '%".$requestSearch."%'";
+                $sql.= "OR Bulan LIKE '%".$requestSearch."%'";
+                $sql.= "OR Pengeluaran LIKE '%".$requestSearch."%'";
                 $query = $this->modelsManager->executeQuery($sql); 
                 $totalFiltered = count($query);
     
@@ -87,7 +87,7 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
                 $query = $this->modelsManager->executeQuery($sql); 
             } else {
             //function menampilkan seluruh data
-                $sql = "SELECT * FROM ViewPerkiraanPemasukanTanggal limit $start,$length" ;
+                $sql = "SELECT * FROM ViewPengeluaranPerbulan limit $start,$length" ;
                 $query = $this->modelsManager->executeQuery($sql); 
             }
 
@@ -97,13 +97,12 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
         foreach ($query as $key => $value) {
             $dataUser = array();
             $dataUser[] = $no;
-            $dataUser[] = $value->tanggal_cair;
-            $dataUser[] = $value->penghasilan;
+            $dataUser[] = $value->Bulan;
+            $dataUser[] = $value->Pengeluaran;
             $dataUser[] ='
             <button type="button" id="btn-view" class="btn btn-warning" data-toggle="modal" data-target="#modal-default" 
-            onclick="return show_data_penghasilan(\''.$value->tanggal_cair.'\');">View</button>
+            onclick="return show_data_pengeluaran(\''.$value->Bulan.'\');">View</button>
             ';
-          
 
             $data[] = $dataUser;
             $no++;
@@ -120,21 +119,4 @@ class ViewPerkiraanPemasukanTanggal extends \Phalcon\Mvc\Model
         return $json_data; 
     }
 
-    public function getDataGraphic()
-    {
-       
-        $sql = "SELECT * FROM ViewPerkiraanPemasukanTanggal LIMIT 5";
-        $query = $this->modelsManager->executeQuery($sql);
-        $data = array();
-        
-        foreach ($query as $key => $value) {
-            $dataUser = array();
-            $tanggal = str_replace(' ','',$value->tanggal_cair);
-            $dataUser['tanggal'] = $value->tanggal_cair;
-            $dataUser['nominal'] = $value->penghasilan;
-            $data[] = $dataUser;
-        }
-        
-        return $data; 
-    }
 }

@@ -42,12 +42,13 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="keuHarian"><i class="fa fa-circle-o"></i>Keuangan Harian</a></li>
+                    <li><a href="keuHarian"><i class="fa fa-circle-o"></i>Keuangan Harian</a></li>
                     <li><a href="rekapHarian"><i class="fa fa-circle-o"></i>Rekap Harian</a></li>
-                    <li><a href="index2.html"><i class="fa fa-circle-o"></i>Rekap Bulanan</a></li>
+                    <li><a href="rekapBulanan"><i class="fa fa-circle-o"></i>Rekap Bulanan</a></li>
                     <li><a href="index2.html"><i class="fa fa-circle-o"></i>Rekap Tahunan</a></li>
                     <li><a href="index2.html"><i class="fa fa-circle-o"></i>Rekap Akun</a></li>
                     <li><a href="index2.html"><i class="fa fa-circle-o"></i>Histori</a></li>
+                    <li><a href="graphic"><i class="fa fa-circle-o"></i>Grafik</a></li>
                 </ul>
             </li>
         </ul>

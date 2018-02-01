@@ -124,4 +124,24 @@ class ViewPemasukanPerhari extends \Phalcon\Mvc\Model
         
         return $json_data; 
     }
+
+    public function getDataGraphic()
+    {
+       
+        $sql = "SELECT ViewPemasukan.*, ViewPengeluaran.* FROM ViewPemasukanPerhari ViewPemasukan, 
+        ViewPengeluaranPerhari ViewPengeluaran WHERE ViewPemasukan.Hari=ViewPengeluaran.Hari Limit 15";
+        $query = $this->modelsManager->executeQuery($sql);
+        $data = array();
+        
+        foreach ($query as $key => $value) {
+            $dataUser = array();
+            // $tanggal = str_replace(' ','',$value->tanggal_cair);
+            $dataUser['Tanggal'] = $value->ViewPemasukan->Hari;
+            $dataUser['Pemasukan'] = $value->ViewPemasukan->pemasukan;
+            $dataUser['Pengeluaran'] = $value->ViewPengeluaran->Pengeluaran;
+            $data[] = $dataUser;
+        }
+        
+        return $data; 
+    }
 }

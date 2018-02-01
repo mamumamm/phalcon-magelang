@@ -39,3 +39,10 @@
 <!-- DataTables -->
 {{ javascript_include("assets/bower_components/datatables.net/js/jquery.dataTables.min.js")}} 
 {{ javascript_include("assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js")}}
+
+<!-- Morris chart -->
+{{ stylesheet_link("assets/bower_components/morris.js/morris.css")}} 
+
+<!-- Morris.js charts -->
+{{ javascript_include("assets/bower_components/raphael/raphael.min.js")}}
+{{ javascript_include("assets/bower_components/morris.js/morris.min.js")}}
