@@ -20,6 +20,7 @@
                 <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Pemasukan</a></li>
                 <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Pengeluaran</a></li>
                 <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Perkiraan Pemasukan</a></li>
+                <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">Grafik</a></li>
                 <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
             </ul>
             <div class="tab-content">  
@@ -114,6 +115,37 @@
                                     </table>
                                 </div>
                                 <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="tab_4">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Data Table With Full Features</h3>
+                                </div>
+                                <!-- Custom tabs (Charts with tabs)-->
+                                <div class="nav-tabs-custom">
+                                    <!-- Tabs within a box -->
+                                        <ul class="nav nav-tabs pull-right">
+                                            <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a></li>
+                                            <li><a href="#revenue-chart2" data-toggle="tab">Donut</a></li>
+                                            <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
+                                        </ul>
+                                    <div class="tab-content no-padding">
+                                        <!-- Morris chart - Sales -->
+                                        <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;"></div>
+                                        <div class="chart tab-pane" id="revenue-chart2" style="position: relative; height: 300px;"></div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- /.nav-tabs-custom -->
+                                
                             </div>
                             <!-- /.box -->
                         </div>
@@ -317,5 +349,64 @@ function show_data_penghasilan(bulan_cair) {
         }
     });
 }
+
+// GRAFIK
+    // LINE CHART
+    //  $.ajax({
+    //      method : "GET",
+    //      dataType: "html",
+    //      url : "{{url('Graphic/getGraphic')}}",
+    //      success: function(result){
+    //         var line = new Morris.Line({
+    //             element: 'line-chart',
+    //             resize: true,
+    //             data: JSON.parse(result),
+    //             xkey: 'tanggal',
+    //             ykeys: ['nominal'],
+    //             labels: ['nominal'],
+    //             parseTime: false,
+    //             lineColors: ['#3c8dbc'],
+    //             hideHover: 'auto'
+    //         });
+    //      }
+    //  });
+
+     $.ajax({
+         method : "GET",
+         dataType: "html",
+         url : "{{url('Graphic/getGraphicPerbulan')}}",
+         success: function(result){
+            var area = new Morris.Area({
+                element   : 'revenue-chart',
+                resize    : true,
+                data      : JSON.parse(result),
+                xkey      : 'Tanggal',
+                ykeys     : ['Pemasukan', 'Pengeluaran'],
+                labels    : ['Pemasukan', 'Pengeluaran'],
+                parseTime : false,
+                lineColors: ['#a0d0e0', '#3c8dbc'],
+                hideHover : 'auto'
+            });
+         }
+     });
+
+    //  $.ajax({
+    //      method : "GET",
+    //      dataType: "html",
+    //      url : "{{url('Graphic/getGraphic')}}",
+    //      success: function(result){
+    //         var area = new Morris.Area({
+    //             element   : 'revenue-chart2',
+    //             resize    : true,
+    //             data      : JSON.parse(result),
+    //             xkey      : 'Tanggal',
+    //             ykeys     : ['Pemasukan', 'Pengeluaran'],
+    //             labels    : ['Pemasukan', 'Pengeluaran'],
+    //             parseTime : false,
+    //             lineColors: ['#a0d0e0', '#3c8dbc'],
+    //             hideHover : 'auto'
+    //         });
+    //      }
+    //  });
 
 </script>

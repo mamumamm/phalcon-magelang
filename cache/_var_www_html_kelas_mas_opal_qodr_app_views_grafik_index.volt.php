@@ -14,6 +14,7 @@
             
         </div>
     </div>
+    
         <!-- /.nav-tabs-custom -->
 </section>
 
@@ -41,7 +42,7 @@
      $.ajax({
          method : "GET",
          dataType: "html",
-         url : "<?= $this->url->get('Graphic/getGraphic') ?>",
+         url : "<?= $this->url->get('/getGraphic') ?>",
          success: function(result){
             var area = new Morris.Area({
                 element   : 'revenue-chart',

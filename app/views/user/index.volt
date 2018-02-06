@@ -56,7 +56,7 @@
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="addUser" action="user/addUser" method="POST">
+            <form class="addUser" action="user/addUser" method="POST" enctype="multipart/form-data">
                 <div class="modal-header">
                     <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
@@ -84,6 +84,9 @@
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
                         <input type="text" name="type" class="form-control" placeholder="Type">
+                    </div>
+                    <div class="input-group-addon">
+                        <input type="file" id="foto_user" name="foto_user">
                     </div>
                 </div>
                 <div class="modal-footer">

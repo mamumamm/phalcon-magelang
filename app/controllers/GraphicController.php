@@ -12,4 +12,11 @@ class GraphicController extends \Phalcon\Mvc\Controller
         $json_data = $data->getDataGraphic();
         die(json_encode($json_data));
     }
+
+    public function getGraphicPerbulanAction()
+    {
+        $data = new ViewPemasukanPerbulan();
+        $json_data = $data->getDataGraphic();
+        die(json_encode($json_data));
+    }
 }

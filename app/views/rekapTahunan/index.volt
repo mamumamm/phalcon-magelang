@@ -24,13 +24,10 @@
                     <a href="#tab_2" data-toggle="tab" aria-expanded="false">Pengeluaran</a>
                 </li>
                 <li class="">
-                    <a href="#tab_3" data-toggle="tab" aria-expanded="false">RAB</a>
+                    <a href="#tab_3" data-toggle="tab" aria-expanded="false">Perkiraan Pemasukan</a>
                 </li>
                 <li class="">
-                    <a href="#tab_4" data-toggle="tab" aria-expanded="false">Perkiraan Pemasukan</a>
-                </li>
-                <li class="">
-                    <a href="#tab_5" data-toggle="tab" aria-expanded="false">Grafik</a>
+                    <a href="#tab_4" data-toggle="tab" aria-expanded="false">Grafik</a>
                 </li>
 
                 <li class="pull-right">
@@ -43,43 +40,6 @@
                 <div class="tab-pane active" id="tab_1">
                     <div class="row">
                         <div class="col-xs-12">
-
-                            <div class="box box-primary collapsed-box">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">REPORT</h3>
-
-                                    <div class="box-tools pull-right">
-                                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <form method="post" action="pemasukan/filterBulan">
-                                    <div class="box-body" style="">
-                                        <div class="chart">
-                                            <div class="col-lg-3 col-xs-6">
-                                                <!-- small box -->
-                                                <div class="small-box bg-aqua">
-                                                    <div class="inner">
-                                                        <h4>Report Bulanan</h4>
-                                                        <select id="filter-bulan" name="bulan" class="form-control">
-                                                            <option selected="selected"> Pilih Bulan </option>
-                                                            <?= $this->Helpers->bulan() ?>
-                                                        </select>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-block btn-primary btn-flat"> filter now
-                                                        <i class="fa fa-arrow-circle-right"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </form>
-                                <!-- /.box-body -->
-                            </div>
-
                             <div class="box">
                                 <div class="box-header">
                                     <h3 class="box-title">Data Table With Full Features</h3>
@@ -90,7 +50,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Hari</th>
+                                                <th>Tahun</th>
                                                 <th>Pemasukan</th>
                                                 <th>Action</th>
 
@@ -123,7 +83,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Hari</th>
+                                                <th>Tahun</th>
                                                 <th>Pengeluaran</th>
                                                 <th>Action</th>
 
@@ -147,45 +107,6 @@
                         <div class="col-xs-12">
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">RAB</h3>
-                                </div>
-                                <!-- /.box-header -->
-                                <div class="box-body">
-                                    <table id="rab" class="table table-bordered table-striped listUser display responsive no-wrap">
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>ID</th>
-                                                <th>Periode</th>
-                                                <th>Nama Barang</th>
-                                                <th>Akun ID</th>
-                                                <th>Jumlah Barang</th>
-                                                <th>Harga Satuan</th>
-                                                <th>Satuan Barang ID</th>
-                                                <th>Total Harga</th>
-                                                <th>Keterangan</th>
-                                                <th>Cabang Id</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /.box-body -->
-                            </div>
-                            <!-- /.box -->
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                </div>
-
-                <!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_4">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box">
-                                <div class="box-header">
                                     <h3 class="box-title">Data Table With Full Features</h3>
                                 </div>
                                 <!-- /.box-header -->
@@ -194,7 +115,7 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Tanggal Cair</th>
+                                                <th>Tahun Cair</th>
                                                 <th>Penghasilan</th>
                                                 <th>Action</th>
                                             </tr>
@@ -212,7 +133,7 @@
                     </div>
                 </div>
                 <!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_5">
+                <div class="tab-pane" id="tab_4">
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="box">
@@ -294,21 +215,11 @@
 
 <script>
     $(document).ready(function() {
-        var dataTable = $('#rab').DataTable({
-            "processing": true,
-            "serverSide": true,
-            "ajax": {
-                url: "Rekapharian/getAjax",
-                type: "post",
-            }
-        });
-    });
-    $(document).ready(function() {
         var dataTable = $('#pengeluaran').DataTable({
             "processing": true,
             "serverSide": true,
             "ajax": {
-                url: "Rekapharian/getAjaxPengeluaran",
+                url: "Rekaptahunan/getAjaxPengeluaran",
                 type: "post",
             }
         });
@@ -318,7 +229,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                url: "Rekapharian/getAjaxPemasukan",
+                url: "Rekaptahunan/getAjaxPemasukan",
                 type: "post",
             }
         });
@@ -328,15 +239,15 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                url: "Rekapharian/getAjaxPenghasilan",
+                url: "Rekaptahunan/getAjaxPenghasilan",
                 type: "post",
             }
         });
     });
 
     // PENGELUARAN
-    function show_data_pengeluaran(Hari) {
-        $('.modal-title').text('Pengeluaran  ' + Hari);
+    function show_data_pengeluaran(Tahun) {
+        $('.modal-title').text('Pengeluaran  ' + Tahun);
         $('.btnAction').attr('class',"btn btn-outline btnAction");
         // $('.kolom1').text('Akun ID');
         // $('.kolom2').text('Nama Barang');
@@ -351,7 +262,7 @@
         $.ajax({
             method: "POST",
             dataType: "json",
-            url: "<?= $this->url->get('Rekapharian/getViewPengeluaran') ?>/" + Hari,
+            url: "{{url('Rekapharian/getViewPengeluaran')}}/" + Tahun,
             data: $('form.addUser').serialize(),
             success: function(response) {
                 var trHTML = '';
@@ -384,7 +295,7 @@
 
     // PEMASUKAN
     function show_data_pemasukan(Hari) {
-        $('.modal-title').text('Pemasukan  ' + Hari);
+        $('.modal-title').text('Pemasukan  ' + Tahun);
         $('.btnAction').attr('class',"btn btn-outline btnAction");
         // $('.kolom1').text('ID');
         
@@ -398,7 +309,7 @@
         $.ajax({
             method: "POST",
             dataType: "json",
-            url: "<?= $this->url->get('Rekapharian/getViewPemasukan') ?>/" + Hari,
+            url: "{{url('Rekapharian/getViewPemasukan')}}/" + Tahun,
             data: $('form.addUser').serialize(),
             success: function(response) {
                 var trHTML = '';
@@ -419,8 +330,8 @@
     }
 
     // PENGHASILAN
-    function show_data_penghasilan(tanggal_cair) {
-        $('.modal-title').text('penghasilan  ' + tanggal_cair);
+    function show_data_penghasilan(tahun_cair) {
+        $('.modal-title').text('penghasilan  ' + tahun_cair);
         $('.btnAction').attr('class',"btn btn-outline btnAction");
         // $('.kolom1').text('Pemasukan dari');
         // $('.kolom2').text('Nominal');
@@ -434,7 +345,7 @@
         $.ajax({
             method: "POST",
             dataType: "json",
-            url: "<?= $this->url->get('Rekapharian/getViewPenghasilan') ?>/" + tanggal_cair,
+            url: "{{url('Rekapharian/getViewPenghasilan')}}/" + tahun_cair,
             data: $('form.addUser').serialize(),
             success: function(response) {
                 var trHTML = '';
@@ -460,7 +371,7 @@
     //  $.ajax({
     //      method : "GET",
     //      dataType: "html",
-    //      url : "<?= $this->url->get('Graphic/getGraphic') ?>",
+    //      url : "{{url('Graphic/getGraphic')}}",
     //      success: function(result){
     //         var line = new Morris.Line({
     //             element: 'line-chart',
@@ -479,7 +390,7 @@
      $.ajax({
          method : "GET",
          dataType: "html",
-         url : "<?= $this->url->get('Graphic/getGraphic') ?>",
+         url : "{{url('Graphic/getGraphic')}}",
          success: function(result){
             var area = new Morris.Area({
                 element   : 'revenue-chart',
@@ -498,7 +409,7 @@
     //  $.ajax({
     //      method : "GET",
     //      dataType: "html",
-    //      url : "<?= $this->url->get('Graphic/getGraphic') ?>",
+    //      url : "{{url('Graphic/getGraphic')}}",
     //      success: function(result){
     //         var area = new Morris.Area({
     //             element   : 'revenue-chart2',

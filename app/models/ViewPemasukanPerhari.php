@@ -129,7 +129,7 @@ class ViewPemasukanPerhari extends \Phalcon\Mvc\Model
     {
        
         $sql = "SELECT ViewPemasukan.*, ViewPengeluaran.* FROM ViewPemasukanPerhari ViewPemasukan, 
-        ViewPengeluaranPerhari ViewPengeluaran WHERE ViewPemasukan.Hari=ViewPengeluaran.Hari Limit 15";
+        ViewPengeluaranPerhari ViewPengeluaran WHERE ViewPemasukan.Hari=ViewPengeluaran.Hari Limit 30";
         $query = $this->modelsManager->executeQuery($sql);
         $data = array();
         

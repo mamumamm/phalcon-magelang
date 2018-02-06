@@ -29,6 +29,9 @@
                 <li class="">
                     <a href="#tab_4" data-toggle="tab" aria-expanded="false">Perkiraan Pemasukan</a>
                 </li>
+                <li class="">
+                    <a href="#tab_5" data-toggle="tab" aria-expanded="false">Grafik</a>
+                </li>
 
                 <li class="pull-right">
                     <a href="#" class="text-muted">
@@ -76,7 +79,6 @@
                                 </form>
                                 <!-- /.box-body -->
                             </div>
-
 
                             <div class="box">
                                 <div class="box-header">
@@ -209,6 +211,37 @@
                         <!-- /.col -->
                     </div>
                 </div>
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="tab_5">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Data Table With Full Features</h3>
+                                </div>
+                                <!-- Custom tabs (Charts with tabs)-->
+                                <div class="nav-tabs-custom">
+                                    <!-- Tabs within a box -->
+                                        <ul class="nav nav-tabs pull-right">
+                                            <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a></li>
+                                            <li><a href="#revenue-chart2" data-toggle="tab">Donut</a></li>
+                                            <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
+                                        </ul>
+                                    <div class="tab-content no-padding">
+                                        <!-- Morris chart - Sales -->
+                                        <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;"></div>
+                                        <div class="chart tab-pane" id="revenue-chart2" style="position: relative; height: 300px;"></div>
+                                        
+                                    </div>
+                                </div>
+                                <!-- /.nav-tabs-custom -->
+                                
+                            </div>
+                            <!-- /.box -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </div>
             </div>
             <!-- /.tab-content -->
         </div>
@@ -227,8 +260,8 @@
             </div>
             <div class="modal-body">
                 <div class="box-body">
-                    <table class="table table-bordered table-striped listUser display responsive no-wrap">
-                        <thead>
+                    <table id="data_keuharian" class="table table-bordered table-striped listUser display responsive no-wrap">
+                        <!-- <thead>
                             <tr>
                                 <th class="kolom1">Akun ID</th>
                                 <th class="kolom2">Nama Barang</th>
@@ -239,9 +272,9 @@
                                 <th class="kolom7">Total Harga</th>
                                 <th class="kolom8">Keterangan</th>
 
-                            </tr>
+                            </tr> -->
                         </thead>
-                        <tbody id="data_keuharian">
+                        <tbody >
 
                         </tbody>
                     </table>
@@ -305,14 +338,14 @@
     function show_data_pengeluaran(Hari) {
         $('.modal-title').text('Pengeluaran  ' + Hari);
         $('.btnAction').attr('class',"btn btn-outline btnAction");
-        $('.kolom1').text('Akun ID');
-        $('.kolom2').text('Nama Barang');
-        $('.kolom3').text('Jumlah Barang');
-        $('.kolom4').text('Harga Satuan');
-        $('.kolom5').text('Pelaku');
-        $('.kolom6').text('Tanggal');
-        $('.kolom7').text('Total Harga');
-        $('.kolom8').text('Keterangan');
+        // $('.kolom1').text('Akun ID');
+        // $('.kolom2').text('Nama Barang');
+        // $('.kolom3').text('Jumlah Barang');
+        // $('.kolom4').text('Harga Satuan');
+        // $('.kolom5').text('Pelaku');
+        // $('.kolom6').text('Tanggal');
+        // $('.kolom7').text('Total Harga');
+        // $('.kolom8').text('Keterangan');
 
 
         $.ajax({
@@ -322,6 +355,8 @@
             data: $('form.addUser').serialize(),
             success: function(response) {
                 var trHTML = '';
+                trHTML += 
+                '<thead><tr><th>Akun ID</th><th>Nama Barang</th><th>JML Barang</th><th>Harga Satuan</th><th>Pelaku</th><th>Tanggal</th><th>Total Harga</th><th>Keterangan</th></tr></thead>';
                 $.each(response, function (i, item) {
                     trHTML += '<tr><td>' + item.akun_id + '</td><td>' + 
                     item.nama_barang + '</td><td>' + 
@@ -351,16 +386,15 @@
     function show_data_pemasukan(Hari) {
         $('.modal-title').text('Pemasukan  ' + Hari);
         $('.btnAction').attr('class',"btn btn-outline btnAction");
-        $('.kolom1').text('ID');
+        // $('.kolom1').text('ID');
         
-        $('.kolom3').text('Pelaku');
-        $('.kolom4').text('Pemasukan');
-        $('.kolom2, .kolom5, .kolom6, .kolom7, .kolom8').hide();
-        $('#btn-close').on('click', function(){
-                    $('.kolom2, .kolom5, .kolom6, .kolom7, .kolom8').show();
-                });
-
-        
+        // $('.kolom3').text('Pelaku');
+        // $('.kolom4').text('Pemasukan');
+        // $('.kolom2, .kolom5, .kolom6, .kolom7, .kolom8').hide();
+        // $('#btn-close').on('click', function(){
+        //             $('.kolom2, .kolom5, .kolom6, .kolom7, .kolom8').show();
+        //         });
+       
         $.ajax({
             method: "POST",
             dataType: "json",
@@ -368,6 +402,7 @@
             data: $('form.addUser').serialize(),
             success: function(response) {
                 var trHTML = '';
+                trHTML += '<thead><tr><th>ID</th><th>Pelaku</th><th>Pengeluaran</th></tr></thead>';
                 $.each(response, function (i, item) {
                     trHTML += '<tr><td>' + item.id + '</td><td>' + 
                         
@@ -387,14 +422,14 @@
     function show_data_penghasilan(tanggal_cair) {
         $('.modal-title').text('penghasilan  ' + tanggal_cair);
         $('.btnAction').attr('class',"btn btn-outline btnAction");
-        $('.kolom1').text('Pemasukan dari');
-        $('.kolom2').text('Nominal');
-        $('.kolom3').text('Tanggal Cair');
-        $('.kolom4').text('Keterangan');
-        $('.kolom5, .kolom6, .kolom7, .kolom8').hide();
-        $('#btn-close').on('click', function(){
-                    $('.kolom5, .kolom6, .kolom7, .kolom8').show();
-                });
+        // $('.kolom1').text('Pemasukan dari');
+        // $('.kolom2').text('Nominal');
+        // $('.kolom3').text('Tanggal Cair');
+        // $('.kolom4').text('Keterangan');
+        // $('.kolom5, .kolom6, .kolom7, .kolom8').hide();
+        // $('#btn-close').on('click', function(){
+        //             $('.kolom5, .kolom6, .kolom7, .kolom8').show();
+        //         });
         
         $.ajax({
             method: "POST",
@@ -403,6 +438,8 @@
             data: $('form.addUser').serialize(),
             success: function(response) {
                 var trHTML = '';
+                trHTML +=
+                '<thead><tr><th>Pemasukan Dari</th><th>Nominal</th><th>Tanggal Perkiraan</th><th>Keterangan</th></tr></thead>';
                 $.each(response, function (i, item) {
                     trHTML += '<tr><td>' + item.pemasukan_dari + '</td><td>' + 
                     item.nominal + '</td><td>' + 
@@ -418,6 +455,64 @@
         });
     }
 
+    // GRAFIK
+    // LINE CHART
+    //  $.ajax({
+    //      method : "GET",
+    //      dataType: "html",
+    //      url : "{{url('Graphic/getGraphic')}}",
+    //      success: function(result){
+    //         var line = new Morris.Line({
+    //             element: 'line-chart',
+    //             resize: true,
+    //             data: JSON.parse(result),
+    //             xkey: 'tanggal',
+    //             ykeys: ['nominal'],
+    //             labels: ['nominal'],
+    //             parseTime: false,
+    //             lineColors: ['#3c8dbc'],
+    //             hideHover: 'auto'
+    //         });
+    //      }
+    //  });
+
+     $.ajax({
+         method : "GET",
+         dataType: "html",
+         url : "{{url('Graphic/getGraphic')}}",
+         success: function(result){
+            var area = new Morris.Area({
+                element   : 'revenue-chart',
+                resize    : true,
+                data      : JSON.parse(result),
+                xkey      : 'Tanggal',
+                ykeys     : ['Pemasukan', 'Pengeluaran'],
+                labels    : ['Pemasukan', 'Pengeluaran'],
+                parseTime : false,
+                lineColors: ['#a0d0e0', '#3c8dbc'],
+                hideHover : 'auto'
+            });
+         }
+     });
+
+    //  $.ajax({
+    //      method : "GET",
+    //      dataType: "html",
+    //      url : "{{url('Graphic/getGraphic')}}",
+    //      success: function(result){
+    //         var area = new Morris.Area({
+    //             element   : 'revenue-chart2',
+    //             resize    : true,
+    //             data      : JSON.parse(result),
+    //             xkey      : 'Tanggal',
+    //             ykeys     : ['Pemasukan', 'Pengeluaran'],
+    //             labels    : ['Pemasukan', 'Pengeluaran'],
+    //             parseTime : false,
+    //             lineColors: ['#a0d0e0', '#3c8dbc'],
+    //             hideHover : 'auto'
+    //         });
+    //      }
+    //  });
     
                 
 </script>
